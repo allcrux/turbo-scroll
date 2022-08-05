@@ -3,6 +3,17 @@
 TurboScroll is a minimalistic gem that provides infinite scrolling for Rails based applications
 using Turbo.
 
+Why a new gem? Leveraging Turbo we can build a very small and efficient implementation
+for infinite page scrolling without extra dependencies.
+
+It's made to be independent from your choice of pagination.
+You can use the [next-pageable](https://github.com/allcrux/next-pageable) gem, which
+is another minimalistic gem for very basic paging leveraging Rails concerns, to just
+provide the functionality you need for infinite scrolling and avoiding a count query
+on each page request (Your main page might still do a count query but you won't
+be repeating them when requesting next page data behind the scenes.)
+
+
 Underlying it depends on ViewComponent and Slim but these are not forced upon the user.
 
 ## Usage
@@ -33,10 +44,6 @@ This gem currently assumes that the page parameter is called `page`, so in
 your controller make sure you use that parameter for selecting
 the records for a given page.
 
-You could use the [next-pageable](https://github.com/allcrux/next-pageable) gem
-but one can also use any other pagination gem of choice.
-
-
 When the loader component becomes visible, it will do 2 things
 
 - append the next page to the #infinite dom id
@@ -46,6 +53,8 @@ When the loader component becomes visible, it will do 2 things
 
 ```
 #infinite
+  / render your page fragment here in whatever structure you desire
+  / and extract it into a partial or a component to avoid repition, if desired.
   - @articles.each do |article|
     = article
 
@@ -65,9 +74,57 @@ the next_page_index is already present on the collection when a next page exists
 
 ```
 = turbo_scroll_update page: @articles.next_page_index
+  / render your page fragment here in whatever structure you desire
+  / and extract it into a partial or a component to avoid repition, if desired.
   - @articles.each do |article|
     = article
 ```
+
+### An HTML table alternative for table layouts using CSS grids
+
+As HTML is pretty picky on the tags allowed inside 'table', 'tr', 'td', etc you
+can consider using CSS grid as an alternative.
+
+```
+.articles-table {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 2fr) minmax(0, 8fr) minmax(0, 2fr) minmax(0, 1fr) 3em;
+  max-width: 100%;
+  width: 100%;
+}
+
+.articles-table .col {
+  height: 2.75rem;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.articles-table .col-striped:nth-child(12n+7),
+.articles-table .col-striped:nth-child(12n+8),
+.articles-table .col-striped:nth-child(12n+9),
+.articles-table .col-striped:nth-child(12n+10),
+.articles-table .col-striped:nth-child(12n+11),
+.articles-table .col-striped:nth-child(12n+12) {
+  background-color: #EEEEEE;
+}
+```
+
+which would go hand in hand with this partial for a record row
+
+```
+.col.col-striped = article.articlenumber
+.col.col-striped = article.barcode
+.col.col-striped = article.description
+.col.col-striped = article.supplier
+.col.col-striped.align-right = article.price.print
+.col.col-striped.align-right
+  a.btn.btn-sm.btn-secondary href=edit_article_path(article)
+    i.bi.bi-pencil
+```
+
 
 ### Using a different DOM ID
 
