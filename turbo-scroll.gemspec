@@ -1,19 +1,20 @@
 require_relative "lib/turbo-scroll/version"
 
 Gem::Specification.new do |spec|
-  spec.name        = "turbo-scroll"
-  spec.version     = TurboScroll::VERSION
-  spec.authors     = ["Koen handekyn"]
-  spec.email       = ["koen@handekyn.com"]
-  spec.homepage    = "https://github.com/allcrux/turbo-scroll"
-  spec.summary     = "Summary of TurboScroll."
+  spec.name = "turbo-scroll"
+  spec.version = TurboScroll::VERSION
+  spec.authors = ["Koen handekyn"]
+  spec.email = ["koen@handekyn.com"]
+  spec.homepage = "https://github.com/allcrux/turbo-scroll"
+  spec.summary = "Summary of TurboScroll."
   spec.description = "Description of TurboScroll."
-  spec.license     = "MIT"
-  
+  spec.license = "MIT"
+
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/allcrux/turbo-scroll"
   spec.metadata["changelog_uri"] = "https://github.com/allcrux/turbo-scroll/blob/main/CHANGELOG.md"
+  spec.metadata["rubygems_mfa_required"] = "true"
 
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]

@@ -14,4 +14,3 @@ class TurboScroll::Update < ViewComponent::Base
     @infinite_dom_id = infinite_dom_id
   end
 end
-

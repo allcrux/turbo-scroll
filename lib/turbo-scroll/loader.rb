@@ -28,4 +28,3 @@ class TurboScroll::Loader < ViewComponent::Base
     page
   end
 end
-
