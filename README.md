@@ -27,11 +27,15 @@ At the bottom of your page, add the infinite scrolling loader
 by calling the `turbo_scroll_loader` helper and passing the next page index
 if a next page is present.
 
-You could use the [next_pageable](https://github.com/allcrux/next_pageable) gem
+You could use the [next-pageable](https://github.com/allcrux/next-pageable) gem
 but one can also use any other pagination gem of choice.
 
-#### Slim Example
+When the loader component becomes visible, it will do 2 things
 
+- append the next page to the #infinite dom idi
+- update the loader to load the next page (when present)
+
+#### Slim Example
 
 ```
 #infinite
@@ -49,7 +53,7 @@ Your turbo_stream response can use the `turbo_scroll_update` helper to
 append the next page content and update the current loader with a
 loader for the next page.
 
-When using the [next_pageable](https://github.com/allcrux/next_pageable) gem
+When using the [next-pageable](https://github.com/allcrux/next-pageable) gem
 the next_page_index is already present on the collection when a next page exists.
 
 ```
@@ -84,26 +88,15 @@ index.turbo_stream.slim
     = article
 ```
 
-
-
-### index.
-
 ## Installation
-Add this line to your application's Gemfile:
 
-```ruby
-gem "turbo-scroll"
-```
+Install the gem and add to the application's Gemfile by executing:
 
-And then execute:
-```bash
-$ bundle
-```
+    $ bundle add turbo-scroll
 
-Or install it yourself as:
-```bash
-$ gem install turbo-scroll
-```
+If bundler is not being used to manage dependencies, install the gem by executing:
+
+    $ gem install turbo-scroll
 
 ## License
 
