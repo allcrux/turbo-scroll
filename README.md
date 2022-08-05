@@ -39,7 +39,7 @@ but one can also use any other pagination gem of choice.
 
 When the loader component becomes visible, it will do 2 things
 
-- append the next page to the #infinite dom idi
+- append the next page to the #infinite dom id
 - update the loader to load the next page (when present)
 
 #### Slim Example
