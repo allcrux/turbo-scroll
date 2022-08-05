@@ -12,6 +12,8 @@ Underlying it depends on ViewComponent and Slim but these are not forced upon th
 Make sure your index action responds both to html and turbo_stream
 
 ```
+    @articles = Article.scoped.page(params[:page]) # next-pageable
+
     respond_to do |format|
       format.html
       format.turbo_stream
@@ -27,8 +29,13 @@ At the bottom of your page, add the infinite scrolling loader
 by calling the `turbo_scroll_loader` helper and passing the next page index
 if a next page is present.
 
+This gem currently assumes that the page parameter is called `page`, so in
+your controller make sure you use that parameter for selecting
+the records for a given page.
+
 You could use the [next-pageable](https://github.com/allcrux/next-pageable) gem
 but one can also use any other pagination gem of choice.
+
 
 When the loader component becomes visible, it will do 2 things
 

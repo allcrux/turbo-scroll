@@ -24,7 +24,6 @@ Gem::Specification.new do |spec|
 
   spec.require_paths = ["lib"]
 
-  # spec.add_dependency "rails", ">= 7.0.3.1"
   spec.add_dependency "railties", ">= 6"
   spec.add_dependency "turbo-rails", ">= 1"
   spec.add_dependency "view_component", ">= 2"
