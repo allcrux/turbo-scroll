@@ -3,6 +3,7 @@ module TurboScroll
     initializer "turbo-scrolls.load_components" do
       require_relative "update"
       require_relative "loader"
+      require_relative "spin_loader"
     end
     initializer "turbo-scrolls.view_helpers" do
       ActiveSupport.on_load(:action_view) do
