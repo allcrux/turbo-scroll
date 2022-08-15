@@ -1,3 +1,4 @@
 = turbo_frame_tag :infinite_loader, src: next_page_stream_path, loading: "lazy", target: "_top"
   .page-loading
-    p ==t(".click_here", next_page_path: next_page_path)
+    p == I18n.t(".click_here", next_page_path: next_page_path)
+    = render(TurboScroll::SpinLoader.new(loading_indicator: loading_indicator))

@@ -6,11 +6,11 @@ class TurboScroll::Update < ViewComponent::Base
   include Turbo::FramesHelper
   include Turbo::StreamsHelper
 
-  attr_reader :page
-  attr_reader :infinite_dom_id
+  attr_reader :page, :infinite_dom_id, :loading_indicator
 
-  def initialize(page:, infinite_dom_id: :infinite)
+  def initialize(page:, loading_indicator:, infinite_dom_id: :infinite)
     @page = page
     @infinite_dom_id = infinite_dom_id
+    @loading_indicator = loading_indicator
   end
 end

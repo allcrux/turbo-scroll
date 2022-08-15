@@ -26,6 +26,7 @@ Lint/MissingSuper:
   Exclude:
     - 'lib/turbo-scroll/loader.rb'
     - 'lib/turbo-scroll/update.rb'
+    - 'lib/turbo-scroll/spin_loader.rb'
 
 # Offense count: 1
 # Configuration parameters: ExpectMatchingDefinition, CheckDefinitionPathHierarchy, CheckDefinitionPathHierarchyRoots, Regex, IgnoreExecutableScripts, AllowedAcronyms.
@@ -51,6 +52,7 @@ Style/ClassAndModuleChildren:
   Exclude:
     - 'lib/turbo-scroll/loader.rb'
     - 'lib/turbo-scroll/update.rb'
+    - 'lib/turbo-scroll/spin_loader.rb'
 
 # Offense count: 4
 # Configuration parameters: AllowedConstants.
@@ -62,6 +64,7 @@ Style/Documentation:
     - 'lib/turbo-scroll/loader.rb'
     - 'lib/turbo-scroll/railtie.rb'
     - 'lib/turbo-scroll/update.rb'
+    - 'lib/turbo-scroll/spin_loader.rb'
 
 # Offense count: 8
 # This cop supports unsafe autocorrection (--autocorrect-all).
