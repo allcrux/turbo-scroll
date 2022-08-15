@@ -6,8 +6,8 @@ Gem::Specification.new do |spec|
   spec.authors = ["Koen handekyn"]
   spec.email = ["koen@handekyn.com"]
   spec.homepage = "https://github.com/allcrux/turbo-scroll"
-  spec.summary = "Summary of TurboScroll."
-  spec.description = "Description of TurboScroll."
+  spec.summary = "Modern infinite page scrolling for Rails."
+  spec.description = "TurboScroll is a minimalistic gem that provides infinite scrolling for Rails based applications using Turbo."
   spec.license = "MIT"
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
