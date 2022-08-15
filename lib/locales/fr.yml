@@ -1,0 +1,3 @@
+---
+fr:
+  click_here: Cliquez <a href="%{next_page_path}">ici<a> pour charger la page suivante.
