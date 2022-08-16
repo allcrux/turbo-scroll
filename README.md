@@ -1,3 +1,5 @@
+[![Gem Version](https://badge.fury.io/rb/turbo-scroll.svg)](https://badge.fury.io/rb/turbo-scroll)
+
 # TurboScroll
 
 TurboScroll is a minimalistic gem that provides infinite scrolling for Rails based applications
