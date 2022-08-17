@@ -1,3 +1,3 @@
 ---
 ro:
-  click_here: Faceți clic <a href="%{next_page_path}">aici<a> pentru a încărca pagina următoare.
+  click_here: Faceți clic <a href="%{next_page_path}">aici</a> pentru a încărca pagina următoare.
