@@ -24,13 +24,13 @@ Underlying it depends on ViewComponent and Slim but these are not forced upon th
 
 Make sure your index action responds both to html and turbo_stream
 
-```
-    @articles = Article.scoped.page(params[:page]) # next-pageable
+```rb
+@articles = Article.scoped.paginate(params[:page]) # next-pageable
 
-    respond_to do |format|
-      format.html
-      format.turbo_stream
-    end
+respond_to do |format|
+  format.html
+  format.turbo_stream
+end
 ```
 
 ### index.html.erb|slim
@@ -53,7 +53,7 @@ When the loader component becomes visible, it will do 2 things
 
 #### Slim Example
 
-```
+```slim
 #infinite
   / render your page fragment here in whatever structure you desire
   / and extract it into a partial or a component to avoid repition, if desired.
@@ -74,7 +74,7 @@ loader for the next page.
 When using the [next-pageable](https://github.com/allcrux/next-pageable) gem
 the next_page_index is already present on the collection when a next page exists.
 
-```
+```slim
 = turbo_scroll_update page: @articles.next_page_index
   / render your page fragment here in whatever structure you desire
   / and extract it into a partial or a component to avoid repition, if desired.
@@ -87,7 +87,7 @@ the next_page_index is already present on the collection when a next page exists
 As HTML is pretty picky on the tags allowed inside 'table', 'tr', 'td', etc you
 can consider using CSS grid as an alternative.
 
-```
+```css
 .articles-table {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(0, 2fr) minmax(0, 8fr) minmax(0, 2fr) minmax(0, 1fr) 3em;
@@ -116,7 +116,7 @@ can consider using CSS grid as an alternative.
 
 which would go hand in hand with this partial for a record row
 
-```
+```css
 .col.col-striped = article.articlenumber
 .col.col-striped = article.barcode
 .col.col-striped = article.description
@@ -138,7 +138,7 @@ DOM ID is `#scroll`.
 
 index.html.slim
 
-```
+```slim
 #scroll
   - @articles.each do |article|
     = article
@@ -148,7 +148,7 @@ index.html.slim
 
 index.turbo_stream.slim
 
-```
+```slim
 = turbo_scroll_update page: @articles.next_page_index, infinite_dom_id: :scroll
   - @articles.each do |article|
     = article
