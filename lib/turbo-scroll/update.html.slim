@@ -1,5 +1,5 @@
 = turbo_stream.append(infinite_dom_id)
   = content
 
-= turbo_stream.replace(:infinite_loader)
-  = render(TurboScroll::Loader.new(page: page, loading_indicator: loading_indicator))
+= turbo_stream.replace(infinite_loader_dom_id)
+  = render(TurboScroll::Loader.new(page: page, infinite_loader_dom_id: infinite_loader_dom_id, loading_indicator: loading_indicator, load_on_scroll: load_on_scroll))

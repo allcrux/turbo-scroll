@@ -1,3 +1,4 @@
 ---
 vn:
   click_here: Nhấp vào <a href="%{next_page_path}">đây</a> để tải trang tiếp theo.
+  more: Xem thêm
