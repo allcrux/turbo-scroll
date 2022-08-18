@@ -1,3 +1,4 @@
 ---
 nl:
   click_here: Klik <a href="%{next_page_path}">hier</a> voor de volgende pagina.
+  more: Meer

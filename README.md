@@ -39,7 +39,7 @@ In your index page, make sure you have a DOM element with ID `infinite`
 and render inside of it your initial page content.
 
 At the bottom of your page, add the infinite scrolling loader
-by calling the `turbo_scroll_loader` helper and passing the next page index
+by calling the `turbo_scroll_auto` helper and passing the next page index
 if a next page is present.
 
 This gem currently assumes that the page parameter is called `page`, so in
@@ -53,21 +53,29 @@ When the loader component becomes visible, it will do 2 things
 
 #### Slim Example
 
+auto wrap with div with id="infinite"
+
+```
+= turbo_scroll_auto page: @articles.next_page_index
+  - @articles.each do |article|
+    = article
+```
+
+alternative, with explicit control over the dom id to be used for appending
+
 ```
 #infinite
-  / render your page fragment here in whatever structure you desire
-  / and extract it into a partial or a component to avoid repition, if desired.
   - @articles.each do |article|
     = article
 
-= turbo_scroll_loader(page: @articles.next_page_index)
+= turbo_scroll_auto page: @articles.next_page_index
 ```
 
 If you want to use a different ID, you'll have to pass it on in turbo_stream response.
 
 ### index.turbo_stream.erb|slim
 
-Your turbo_stream response can use the `turbo_scroll_update` helper to
+Your turbo_stream response can use the `turbo_scroll_update_auto` helper to
 append the next page content and update the current loader with a
 loader for the next page.
 
@@ -75,11 +83,23 @@ When using the [next-pageable](https://github.com/allcrux/next-pageable) gem
 the next_page_index is already present on the collection when a next page exists.
 
 ```
-= turbo_scroll_update page: @articles.next_page_index
-  / render your page fragment here in whatever structure you desire
-  / and extract it into a partial or a component to avoid repition, if desired.
+= turbo_scroll_auto_stream page: @articles.next_page_index
   - @articles.each do |article|
     = article
+```
+
+### Manual more variant
+
+```
+= turbo_scroll_more page: @articles.next_page_index
+  = render(Articles::Row.with_collection(@articles))
+```
+
+articles\index.turbo_stream.slim
+
+```
+= turbo_scroll_more_stream page: @articles.next_page_index
+  = render Articles::Row.with_collection(@articles)
 ```
 
 ### An HTML table alternative for table layouts using CSS grids
@@ -131,7 +151,7 @@ which would go hand in hand with this partial for a record row
 ### Using a different DOM ID
 
 In case you want or need to use a different DOM ID you
-can pass it on as an extra param to the `turbo_scroll_update` helper.
+can pass it on as an extra param to the `turbo_scroll_auto_stream` helper.
 
 The below example illustrates this for the case where your
 DOM ID is `#scroll`.
@@ -139,17 +159,15 @@ DOM ID is `#scroll`.
 index.html.slim
 
 ```
-#scroll
+= turbo_scroll_auto page: @articles.next_page_index, id: :scroll
   - @articles.each do |article|
     = article
-
-= turbo_scroll_loader(page: @articles.next_page_index)
 ```
 
 index.turbo_stream.slim
 
 ```
-= turbo_scroll_update page: @articles.next_page_index, infinite_dom_id: :scroll
+= turbo_scroll_update_auto page: @articles.next_page_index, infinite_dom_id: :scroll
   - @articles.each do |article|
     = article
 ```

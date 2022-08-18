@@ -1,0 +1,12 @@
+turbo-frame id=loader_dom_id
+  a.more href="#" onclick="more('#{next_page_stream_path}')" =t(".more")
+
+javascript:
+  function more(url) {
+    event.preventDefault();
+    fetch(url)
+      .then(response => response.text())
+      .then(html => Turbo.renderStreamMessage(html))
+      .catch(error => console.warn('Something went wrong.', error));
+  }
+
