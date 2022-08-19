@@ -2,13 +2,14 @@
 
 require "turbo-rails"
 
-class TurboScroll::Loader < ViewComponent::Base
+class TurboScroll::Auto < ViewComponent::Base
   include Turbo::FramesHelper
 
-  attr_reader :page, :loading_indicator
+  attr_reader :page, :loader_dom_id, :loading_indicator
 
-  def initialize(page:, loading_indicator: true)
+  def initialize(page:, loader_dom_id: :loader, loading_indicator: true)
     @page = page
+    @loader_dom_id = loader_dom_id
     @loading_indicator = loading_indicator
   end
 

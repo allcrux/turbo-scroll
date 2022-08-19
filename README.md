@@ -35,12 +35,32 @@ end
 
 ### index.html.erb|slim
 
-In your index page, make sure you have a DOM element with ID `infinite`
+The simplest is to use the `turbo_scroll_auto` helper and
+nest inside your initial infinite content. This will wrap the
+content with an element with id #infinite that will be
+used to append new content to for infinite scrolling.
+
+
+```slim
+= turbo_scroll_auto page: @articles.next_page_index
+  - @articles.each do |article|
+    = article
+```
+
+Alternatively, in your index page, make sure you have a DOM element with ID `infinite`
 and render inside of it your initial page content.
 
 At the bottom of your page, add the infinite scrolling loader
-by calling the `turbo_scroll_loader` helper and passing the next page index
+by calling the `turbo_scroll_auto` helper and passing the next page index
 if a next page is present.
+
+```slim
+#infinite
+  - @articles.each do |article|
+    = article
+
+= turbo_scroll_auto page: @articles.next_page_index
+```
 
 This gem currently assumes that the page parameter is called `page`, so in
 your controller make sure you use that parameter for selecting
@@ -51,23 +71,11 @@ When the loader component becomes visible, it will do 2 things
 - append the next page to the #infinite dom id
 - update the loader to load the next page (when present)
 
-#### Slim Example
-
-```slim
-#infinite
-  / render your page fragment here in whatever structure you desire
-  / and extract it into a partial or a component to avoid repition, if desired.
-  - @articles.each do |article|
-    = article
-
-= turbo_scroll_loader(page: @articles.next_page_index)
-```
-
 If you want to use a different ID, you'll have to pass it on in turbo_stream response.
 
 ### index.turbo_stream.erb|slim
 
-Your turbo_stream response can use the `turbo_scroll_update` helper to
+Your turbo_stream response can use the `turbo_scroll_auto_stream` helper to
 append the next page content and update the current loader with a
 loader for the next page.
 
@@ -75,11 +83,27 @@ When using the [next-pageable](https://github.com/allcrux/next-pageable) gem
 the next_page_index is already present on the collection when a next page exists.
 
 ```slim
-= turbo_scroll_update page: @articles.next_page_index
-  / render your page fragment here in whatever structure you desire
-  / and extract it into a partial or a component to avoid repition, if desired.
+= turbo_scroll_auto_stream page: @articles.next_page_index
   - @articles.each do |article|
     = article
+```
+
+### More variant (no auto loading, just simple 'more' loading)
+
+```slim
+= turbo_scroll_more page: @articles.next_page_index
+  = render(Articles::Row.with_collection(@articles))
+```
+
+Your turbo_stream response can use the `turbo_scroll_more_stream` helper to
+append the next page content and update the current more loader with a
+more loader for the next page.
+
+articles\index.turbo_stream.slim
+
+```slim
+= turbo_scroll_more_stream page: @articles.next_page_index
+  = render Articles::Row.with_collection(@articles)
 ```
 
 ### An HTML table alternative for table layouts using CSS grids
@@ -88,14 +112,14 @@ As HTML is pretty picky on the tags allowed inside 'table', 'tr', 'td', etc you
 can consider using CSS grid as an alternative.
 
 ```css
-.articles-table {
+.article.row {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(0, 2fr) minmax(0, 8fr) minmax(0, 2fr) minmax(0, 1fr) 3em;
   max-width: 100%;
   width: 100%;
 }
 
-.articles-table .col {
+.article.row .col {
   height: 2.75rem;
   display: flex;
   align-items: center;
@@ -104,34 +128,43 @@ can consider using CSS grid as an alternative.
   padding-right: 0.5rem;
 }
 
-.articles-table .col-striped:nth-child(12n+7),
-.articles-table .col-striped:nth-child(12n+8),
-.articles-table .col-striped:nth-child(12n+9),
-.articles-table .col-striped:nth-child(12n+10),
-.articles-table .col-striped:nth-child(12n+11),
-.articles-table .col-striped:nth-child(12n+12) {
+.article.row .col-head {
+  font-weight: bolder;
+}
+
+.article.row .col-filter {
+  padding-left: 0rem;
+  padding-right: 0rem;
+}
+
+.article.row .align-right {
+  justify-content: right;
+}
+
+.article.row.striped:nth-child(2n+1) {
   background-color: #EEEEEE;
 }
 ```
 
 which would go hand in hand with this partial for a record row
 
-```css
-.col.col-striped = article.articlenumber
-.col.col-striped = article.barcode
-.col.col-striped = article.description
-.col.col-striped = article.supplier
-.col.col-striped.align-right = article.price.print
-.col.col-striped.align-right
-  a.btn.btn-sm.btn-secondary href=edit_article_path(article)
-    i.bi.bi-pencil
+```slim
+.article.row.striped
+  .col = article.articlenumber
+  .col = article.barcode
+  .col = article.description
+  .col = article.supplier
+  .col.align-right = article.price.print
+  .col.align-right
+    a.btn.btn-sm.btn-secondary href=edit_article_path(article)
+      i.bi.bi-pencil
 ```
 
 
 ### Using a different DOM ID
 
 In case you want or need to use a different DOM ID you
-can pass it on as an extra param to the `turbo_scroll_update` helper.
+can pass it on as an extra param to the `turbo_scroll_auto_stream` helper.
 
 The below example illustrates this for the case where your
 DOM ID is `#scroll`.
@@ -139,17 +172,15 @@ DOM ID is `#scroll`.
 index.html.slim
 
 ```slim
-#scroll
+= turbo_scroll_auto page: @articles.next_page_index, id: :scroll
   - @articles.each do |article|
     = article
-
-= turbo_scroll_loader(page: @articles.next_page_index)
 ```
 
 index.turbo_stream.slim
 
 ```slim
-= turbo_scroll_update page: @articles.next_page_index, infinite_dom_id: :scroll
+= turbo_scroll_auto_stream page: @articles.next_page_index, infinite_dom_id: :scroll
   - @articles.each do |article|
     = article
 ```

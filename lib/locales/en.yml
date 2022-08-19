@@ -1,3 +1,4 @@
 ---
 en:
   click_here: Click <a href="%{next_page_path}">here</a> to force load the next page.
+  more: More

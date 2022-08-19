@@ -1,8 +1,10 @@
 module TurboScroll
   class Railtie < ::Rails::Railtie
     initializer "turbo-scrolls.load_components" do
-      require_relative "update"
-      require_relative "loader"
+      require_relative "auto"
+      require_relative "auto_stream"
+      require_relative "more"
+      require_relative "more_stream"
       require_relative "spin_loader"
     end
     initializer "turbo-scrolls.view_helpers" do |app|
