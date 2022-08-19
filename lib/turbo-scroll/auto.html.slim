@@ -1,4 +1,5 @@
 = turbo_frame_tag loader_dom_id, src: next_page_stream_path, loading: "lazy", target: "_top"
   .page-loading
     p == I18n.t(".click_here", next_page_path: next_page_path)
-    = render(TurboScroll::SpinLoader.new(loading_indicator: loading_indicator))
+    - if loading_indicator
+      = render(TurboScroll::SpinLoader.new())
