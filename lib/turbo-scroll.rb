@@ -3,19 +3,24 @@ require "turbo-scroll/railtie" if defined?(Rails::Railtie)
 
 module TurboScroll
   module ViewHelpers
+
     #
     def turbo_scroll_auto(page:, loader_dom_id: :loader, loading_indicator: true, id: :infinite, &block)
-      safe_concat(%{<div id="#{id}">})
-      concat(capture(&block)) if block_given?
-      safe_concat("</div>")
+      if block_given?
+        safe_concat(%{<div id="#{id}">})
+        concat(capture(&block))
+        safe_concat("</div>")
+      end
       render(TurboScroll::Auto.new(page: page, loader_dom_id: loader_dom_id, loading_indicator: loading_indicator))
     end
 
     #
     def turbo_scroll_more(page:, loader_dom_id: :loader, id: :infinite, &block)
-      safe_concat(%{<div id="#{id}">})
-      concat(capture(&block)) if block_given?
-      safe_concat("</div>")
+      if block_given?
+        safe_concat(%{<div id="#{id}">})
+        concat(capture(&block))
+        safe_concat("</div>")
+      end
       render(TurboScroll::More.new(page: page, loader_dom_id: loader_dom_id))
     end
 
