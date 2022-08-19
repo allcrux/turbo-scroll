@@ -13,8 +13,5 @@ module TurboScroll
       end
       app.config.i18n.load_path += Dir[File.expand_path(File.join(File.dirname(__FILE__), '../locales', '*.yml')).to_s]
     end
-    rake_tasks do
-      load "#{Gem.loaded_specs["turbo-scroll"].full_gem_path}/lib/tasks/turbo_scroll_tasks.rake"
-    end
   end
 end
