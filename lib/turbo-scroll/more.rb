@@ -17,6 +17,10 @@ class TurboScroll::More < ViewComponent::Base
       request.query_parameters.except(:page, :raw, :format)
   end
 
+  def next_page_path
+    url_for(page: page, **query_params)
+  end
+
   def next_page_stream_path
     url_for(format: :turbo_stream, page: page, **query_params)
   end

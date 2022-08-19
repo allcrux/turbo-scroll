@@ -20,18 +20,6 @@ module TurboScroll
     end
 
     #
-    def turbo_scroll_more_stream(page:, loader_dom_id: :loader, infinite_dom_id: :infinite, &block)
-      render(
-        TurboScroll::MoreStream.new(
-          page: page,
-          loader_dom_id: loader_dom_id,
-          infinite_dom_id: infinite_dom_id
-        ),
-        &block
-      )
-    end
-
-    #
     def turbo_scroll_auto_stream(page:, loader_dom_id: :loader, infinite_dom_id: :infinite, load_on_scroll: true, loading_indicator: true, &block)
       render(
         TurboScroll::AutoStream.new(
@@ -40,6 +28,18 @@ module TurboScroll
           infinite_dom_id: infinite_dom_id,
           load_on_scroll: load_on_scroll,
           loading_indicator: loading_indicator
+        ),
+        &block
+      )
+    end
+
+    #
+    def turbo_scroll_more_stream(page:, loader_dom_id: :loader, infinite_dom_id: :infinite, &block)
+      render(
+        TurboScroll::MoreStream.new(
+          page: page,
+          loader_dom_id: loader_dom_id,
+          infinite_dom_id: infinite_dom_id
         ),
         &block
       )
