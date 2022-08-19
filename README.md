@@ -75,7 +75,7 @@ If you want to use a different ID, you'll have to pass it on in turbo_stream res
 
 ### index.turbo_stream.erb|slim
 
-Your turbo_stream response can use the `turbo_scroll_update_auto` helper to
+Your turbo_stream response can use the `turbo_scroll_auto_stream` helper to
 append the next page content and update the current loader with a
 loader for the next page.
 
@@ -94,6 +94,10 @@ the next_page_index is already present on the collection when a next page exists
 = turbo_scroll_more page: @articles.next_page_index
   = render(Articles::Row.with_collection(@articles))
 ```
+
+Your turbo_stream response can use the `turbo_scroll_more_stream` helper to
+append the next page content and update the current more loader with a
+more loader for the next page.
 
 articles\index.turbo_stream.slim
 
