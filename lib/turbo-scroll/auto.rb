@@ -7,7 +7,7 @@ class TurboScroll::Auto < ViewComponent::Base
 
   attr_reader :page, :loader_dom_id, :loading_indicator
 
-  def initialize(page:, loader_dom_id: :loader, loading_indicator: true)
+  def initialize(page:, loader_dom_id: :turbo_loader, loading_indicator: true)
     @page = page
     @loader_dom_id = loader_dom_id
     @loading_indicator = loading_indicator

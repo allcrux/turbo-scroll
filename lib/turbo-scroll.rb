@@ -5,7 +5,7 @@ module TurboScroll
   module ViewHelpers
 
     #
-    def turbo_scroll_auto(page:, loader_dom_id: :loader, loading_indicator: true, id: :infinite, &block)
+    def turbo_scroll_auto(page:, loader_dom_id: :turbo_loader, loading_indicator: true, id: :infinite, &block)
       if block_given?
         safe_concat(%{<div id="#{id}">})
         concat(capture(&block))
@@ -15,7 +15,7 @@ module TurboScroll
     end
 
     #
-    def turbo_scroll_more(page:, loader_dom_id: :loader, id: :infinite, &block)
+    def turbo_scroll_more(page:, loader_dom_id: :turbo_loader, id: :infinite, &block)
       if block_given?
         safe_concat(%{<div id="#{id}">})
         concat(capture(&block))
@@ -25,7 +25,7 @@ module TurboScroll
     end
 
     #
-    def turbo_scroll_auto_stream(page:, loader_dom_id: :loader, infinite_dom_id: :infinite, loading_indicator: true, &block)
+    def turbo_scroll_auto_stream(page:, loader_dom_id: :turbo_loader, infinite_dom_id: :infinite, loading_indicator: true, &block)
       render(
         TurboScroll::AutoStream.new(
           page: page,
@@ -38,7 +38,7 @@ module TurboScroll
     end
 
     #
-    def turbo_scroll_more_stream(page:, loader_dom_id: :loader, infinite_dom_id: :infinite, &block)
+    def turbo_scroll_more_stream(page:, loader_dom_id: :turbo_loader, infinite_dom_id: :infinite, &block)
       render(
         TurboScroll::MoreStream.new(
           page: page,

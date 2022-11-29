@@ -7,7 +7,7 @@ class TurboScroll::More < ViewComponent::Base
 
   attr_reader :page, :loader_dom_id
 
-  def initialize(page:, loader_dom_id: :loader)
+  def initialize(page:, loader_dom_id: :turbo_loader)
     @page = page
     @loader_dom_id = loader_dom_id
   end

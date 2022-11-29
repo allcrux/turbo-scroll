@@ -8,7 +8,7 @@ class TurboScroll::MoreStream < ViewComponent::Base
 
   attr_reader :page, :loader_dom_id, :infinite_dom_id
 
-  def initialize(page:, loader_dom_id: :loader, infinite_dom_id: :infinite)
+  def initialize(page:, loader_dom_id: :turbo_loader, infinite_dom_id: :infinite)
     @page = page
     @loader_dom_id = loader_dom_id
     @infinite_dom_id = infinite_dom_id
