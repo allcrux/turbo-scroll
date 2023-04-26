@@ -21,6 +21,11 @@ Gemspec/RequiredRubyVersion:
   Exclude:
     - 'turbo-scroll.gemspec'
 
+
+Lint/ConstantDefinitionInBlock:
+  Exclude:
+    - 'lib/turbo-scroll/railtie.rb'
+
 # Offense count: 2
 Lint/MissingSuper:
   Exclude:
