@@ -1,25 +1,12 @@
 module TurboScroll
   class Railtie < ::Rails::Railtie
-    config.before_initialize do
-      module ::ViewComponent
-        class Base < ActionView::Base
-          class << self
-            def config
-              @config ||= ViewComponent::Config.defaults
-            end
-          end
-        end
-      end
-    end
-
-    initializer "turbo-scrolls.load_components" do
-      ActiveSupport.on_load(:action_view) do
-        require_relative "auto"
-        require_relative "auto_stream"
-        require_relative "more"
-        require_relative "more_stream"
-        require_relative "spin_loader"
-      end
+    initializer "turbo-scrolls.load_components", after: "view_component.set_configs" do
+      require "view_component/base"
+      require_relative "auto"
+      require_relative "auto_stream"
+      require_relative "more"
+      require_relative "more_stream"
+      require_relative "spin_loader"
     end
 
     initializer "turbo-scrolls.view_helpers" do |app|

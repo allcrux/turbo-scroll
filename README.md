@@ -15,7 +15,6 @@ provide the functionality you need for infinite scrolling and avoiding a count q
 on each page request (Your main page might still do a count query but you won't
 be repeating them when requesting next page data behind the scenes.)
 
-
 Underlying it depends on ViewComponent and Slim but these are not forced upon the user.
 
 ## Usage
@@ -39,7 +38,6 @@ The simplest is to use the `turbo_scroll_auto` helper and
 nest inside your initial infinite content. This will wrap the
 content with an element with id #infinite that will be
 used to append new content to for infinite scrolling.
-
 
 ```slim
 = turbo_scroll_auto page: @articles.next_page_index
@@ -160,7 +158,6 @@ which would go hand in hand with this partial for a record row
       i.bi.bi-pencil
 ```
 
-
 ### Using a different DOM ID
 
 In case you want or need to use a different DOM ID you
@@ -189,11 +186,44 @@ index.turbo_stream.slim
 
 Install the gem and add to the application's Gemfile by executing:
 
-    $ bundle add turbo-scroll
+    bundle add turbo-scroll
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
-    $ gem install turbo-scroll
+    gem install turbo-scroll
+
+## Compatibility testing
+
+TurboScroll supports ViewComponent 3 and 4. ViewComponent 4 requires Ruby 3.2+
+and Rails 7.1+; upgrading TurboScroll does not require upgrading ViewComponent.
+
+When upgrading an older checkout to Ruby 4, refresh the development lockfile
+before installing. Old lockfiles can pin Minitest 5, which excludes Ruby 4,
+and older Rake releases that depend on removed standard-library gems:
+
+```sh
+VIEW_COMPONENT_VERSION=3.27.0 bundle update
+```
+
+Run the Rails integration tests with `bundle exec rake test`. To select a
+ViewComponent version, set `VIEW_COMPONENT_VERSION` when resolving dependencies
+and running the tests:
+
+```sh
+VIEW_COMPONENT_VERSION=3.27.0 bundle update view_component
+VIEW_COMPONENT_VERSION=3.27.0 bundle exec rake test
+VIEW_COMPONENT_VERSION=4.20.0 bundle update view_component
+VIEW_COMPONENT_VERSION=4.20.0 bundle exec rake test
+```
+
+Set `EAGER_LOAD=true` when running the tests to also check eager-loaded boot
+and rendering. If the test dependencies and both ViewComponent versions are
+already installed, each version can be tested without changing a lockfile:
+
+```sh
+VIEW_COMPONENT_VERSION=3.27.0 ruby -Ilib test/compatibility_test.rb
+VIEW_COMPONENT_VERSION=4.20.0 ruby -Ilib test/compatibility_test.rb
+```
 
 ## License
 
