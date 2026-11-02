@@ -10,3 +10,7 @@ gemspec
 # gem "debug", ">= 1.0.0"
 
 gem "rubocop"
+gem "minitest"
+gem "slim-rails"
+
+gem "view_component", ENV["VIEW_COMPONENT_VERSION"] if ENV["VIEW_COMPONENT_VERSION"]
